@@ -1,0 +1,16 @@
+ARG OPENJDK=11.0.13
+
+FROM openjdk:$OPENJDK
+
+ARG SCALA_VER=2.12.10
+ARG SBT_VER=1.2.8
+
+LABEL maintainer="Eduardo Bruno <eduardo@bruno.etc.br>"
+
+RUN wget -O- "http://downloads.lightbend.com/scala/$SCALA_VER/scala-$SCALA_VER.tgz" \
+	| tar xzf - -C /usr/local --strip-components=1
+
+RUN wget -O- "https://github.com/sbt/sbt/releases/download/v${SBT_VER}/sbt-${SBT_VER}.tgz" \
+	| tar xzf - -C /usr/local --strip-components=1 \
+	&& sbt exit
+
