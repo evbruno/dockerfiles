@@ -1,0 +1,19 @@
+version: '3'
+services:
+  
+  db: 
+    # image: mysql:latest  # amd only 🥲
+    image: arm64v8/mysql:oracle
+    environment:
+      - MYSQL_ROOT_PASSWORD=asdfasdf
+    ports:
+      - 3306:3306
+  
+  web:
+    image: phpmyadmin:apache
+    environment:
+      - MYSQL_ROOT_PASSWORD=asdfasdf
+    depends_on:
+      - db
+    ports:
+      - 8080:80
